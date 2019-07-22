@@ -148,34 +148,26 @@ myplot
 
 
 
-
 #########################
 #Creating Figure 5
 #########################
-write.csv(mldomain[,c("OwnerUserId","UserProfile","label", "label2")], "./qualitative_sample/ml_qual_user_expertise.csv", row.names = F)
 #loadings libs
 library(ggplot2)
 library(irr)
 #reading files
 #Kappa ~= 0.92
-mldomain = read.csv("./ml_user_labels.csv")
-webdevdomain= read.csv("./web_development_user_sample.csv")
+mlusers = read.csv("./qualitative_sample/ml_qual_user_expertise.csv")
+webdevusers= read.csv("./qualitative_sample/web_sample_user_expertise.csv")
 
-mldomain = mldomain[1:50,c("X", "OwnerUserId", "UserProfile", "label_user_level", "label_user_level_2nd..M.",  "label_user_level_2nd..H.")]
-mldomain$label = rep("none", 50)
-mldomain[which(mldomain$label_user_level_2nd..M.==1 | mldomain$label_user_level_2nd..M.==2),"label"] = "New"
-mldomain[which(mldomain$label_user_level_2nd..M.==3 | mldomain$label_user_level_2nd..M.==4),"label"] = "Intermediate"
-mldomain[which(mldomain$label_user_level_2nd..M.==5),"label"] = "Expert"
-table(mldomain$label)
-#reading 2
-webdevdomain$label = webdevdomain$Expert.Level..H.
-#preparing for plotting
-temp = data.frame(UserExpertise = c(mldomain$label, as.character(webdevdomain$label)), Domain=c(rep("Machine Learning", 50),rep("Web Development", 50)))
+#placeholder for results
+temp = data.frame(UserExpertise = c(as.character(mlusers$label), as.character(webdevusers$label)), Domain=c(rep("Machine Learning", 50),rep("Web Development", 50)))
 temp2 = table(temp)/50
 temp3 = data.frame(UserExpertise=c(temp2[1],temp2[2],temp2[3],temp2[4],temp2[5],temp2[6]),
                    Domain = c(rep("Machine Learning", 3), rep("Web Development", 3)),
                    Type = c("Expert", "Intermediate", "Novice",
                             "Expert", "Intermediate", "Novice"))
+
+#plotting
 myplot = ggplot(temp3, aes(x=Type , y=UserExpertise*100, fill=Domain)) + 
   geom_bar(stat = "identity", position = "dodge", color="black") +
   #scale_fill_manual(values = c(rgb(0.498,0.875,0.882),rgb(0.988,0.729,0.714)))  + 
@@ -187,29 +179,38 @@ myplot = ggplot(temp3, aes(x=Type , y=UserExpertise*100, fill=Domain)) +
 myplot
 
 #calculating agreement
-kappa2(mldomain[,c("label","label2")])
-kappa2(mldomain[,c("label_user_level_2nd..H.","label_user_level_2nd..M.")])
-kappa2(webdevdomain[,c("Expert.Level..H.","label")])
+kappa2(mlusers[,c("label","label2")])
+kappa2(webdevusers[,c("label","label2")])
+(as.numeric(kappa2(mlusers[,c("label","label2")])[5]) + as.numeric(kappa2(webdevusers[,c("label","label2")])[5]))/2
+
 
 
 #########################
 #Creating Figure 6
 #########################
-write.csv(mldomain[,c("OwnerUserId","UserProfile","label_user_level","label_user_level_2nd..M.","label_user_level_2nd..H.")],"./ml_user_expertise.csv", row.names = F, quote=F)
+#loadings libs
+library(ggplot2)
+library(irr)
 
-dataset = read.csv("qual_final.csv", stringsAsFactors = F) 
-totalnaa = length(which(dataset$label_why_no_accepted_answer_2nd != "accepted" & dataset$label_why_no_accepted_answer_2nd != "closed" & dataset$label_why_no_accepted_answer_2nd != "duplicate" & dataset$label_why_no_accepted_answer_2nd != "accepted usersolved" &
-                          (dataset$label_question_phase_2nd=="PD" | dataset$label_question_phase_2nd=="DP" | dataset$label_question_phase_2nd=="MF" |
-                             dataset$label_question_phase_2nd=="MT"| dataset$label_question_phase_2nd=="ME" | dataset$label_question_phase_2nd=="MD" | dataset$label_question_phase_2nd=="others")))
-diff = data.frame(Phase=c("PD", "DP", "MF","MT", "ME", "MD", "others"),naa = c(length(which(dataset$label_question_phase_2nd=="PD" & dataset$label_why_no_accepted_answer_2nd != "accepted" & dataset$label_why_no_accepted_answer_2nd != "closed" & dataset$label_why_no_accepted_answer_2nd != "duplicate" & dataset$label_why_no_accepted_answer_2nd != "accepted usersolved") ),
-                                                                               length(which(dataset$label_question_phase_2nd=="DP" & dataset$label_why_no_accepted_answer_2nd != "accepted" & dataset$label_why_no_accepted_answer_2nd != "closed" & dataset$label_why_no_accepted_answer_2nd != "duplicate" & dataset$label_why_no_accepted_answer_2nd != "accepted usersolved") ),
-                                                                               length(which(dataset$label_question_phase_2nd=="MF" & dataset$label_why_no_accepted_answer_2nd != "accepted" & dataset$label_why_no_accepted_answer_2nd != "closed" & dataset$label_why_no_accepted_answer_2nd != "duplicate" & dataset$label_why_no_accepted_answer_2nd != "accepted usersolved") ),
-                                                                               length(which(dataset$label_question_phase_2nd=="MT" & dataset$label_why_no_accepted_answer_2nd != "accepted" & dataset$label_why_no_accepted_answer_2nd != "closed" & dataset$label_why_no_accepted_answer_2nd != "duplicate" & dataset$label_why_no_accepted_answer_2nd != "accepted usersolved") ),
-                                                                               length(which(dataset$label_question_phase_2nd=="ME" & dataset$label_why_no_accepted_answer_2nd != "accepted" & dataset$label_why_no_accepted_answer_2nd != "closed" & dataset$label_why_no_accepted_answer_2nd != "duplicate" & dataset$label_why_no_accepted_answer_2nd != "accepted usersolved") ),
-                                                                               length(which(dataset$label_question_phase_2nd=="MD" & dataset$label_why_no_accepted_answer_2nd != "accepted" & dataset$label_why_no_accepted_answer_2nd != "closed" & dataset$label_why_no_accepted_answer_2nd != "duplicate" & dataset$label_why_no_accepted_answer_2nd != "accepted usersolved") ),
-                                                                               length(which(dataset$label_question_phase_2nd=="others" & dataset$label_why_no_accepted_answer_2nd != "accepted" & dataset$label_why_no_accepted_answer_2nd != "closed" & dataset$label_why_no_accepted_answer_2nd != "duplicate" & dataset$label_why_no_accepted_answer_2nd != "accepted usersolved") )))
-diff$Phase = factor(diff$Phase, levels=c("PD", "DP", "MF","MT", "ME", "MD", "others", "deleted"))
-myplot = ggplot(diff, aes(x=Phase, y = (naa/totalnaa)*100)) + 
+#reading files
+ml_qual = read.csv("./qualitative_sample/ml_qual_sample.csv", stringsAsFactors = F)
+
+#measuring agreement
+#kappa ~= 0.8
+kappa2(ml_qual[which(ml_qual$label_question_phase_2nd!="deleted"),c("label_question_phase","label_question_phase_2nd")])
+
+#placeholder for results
+temp = data.frame(Phase=c("PD", "DP", "MF","MT", "ME", "MD", "others"),naa = c(length(which(ml_qual$label_question_phase_2nd=="PD" & ml_qual$QuestionStatus=="no-accepted-answer")),
+                                                                               length(which(ml_qual$label_question_phase_2nd=="DP" & ml_qual$QuestionStatus=="no-accepted-answer")),
+                                                                               length(which(ml_qual$label_question_phase_2nd=="MF" & ml_qual$QuestionStatus=="no-accepted-answer")),
+                                                                               length(which(ml_qual$label_question_phase_2nd=="MT" & ml_qual$QuestionStatus=="no-accepted-answer")),
+                                                                               length(which(ml_qual$label_question_phase_2nd=="ME" & ml_qual$QuestionStatus=="no-accepted-answer")),
+                                                                               length(which(ml_qual$label_question_phase_2nd=="MD" & ml_qual$QuestionStatus=="no-accepted-answer")),
+                                                                               length(which(ml_qual$label_question_phase_2nd=="others" & ml_qual$QuestionStatus=="no-accepted-answer"))))
+temp$Phase = factor(temp$Phase, levels=c("PD", "DP", "MF","MT", "ME", "MD", "others"))
+
+#plotting
+myplot = ggplot(temp, aes(x=Phase, y = (naa/length(which(ml_qual$QuestionStatus=="no-accepted-answer")))*100)) + 
   #geom_bar(color="black", fill=rgb(0.498,0.875,0.882), stat="identity") +
   geom_bar(color="black", fill=rgb(0.996,0.847,0.737), stat="identity") +
   labs(title="", x="",y="% no accepted answer") +
