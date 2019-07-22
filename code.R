@@ -227,3 +227,60 @@ myplot
 #########################
 #Creating Figure 8
 #########################
+
+
+
+
+
+#########################
+#Others - Coherence and log_prex of the topics
+#########################
+#the following coherence and log_prex were calculated as follows
+#1. We used gensim to preprocess the ML quantitative_sample (title and body) while keeping numbers and removing HTML into a bag of word representation (including bigrams). 
+#2. We then applied LDA using gensim lib as well on the corpus.
+# -- used gensim CoherenceModel() to get coherence
+# -- used gensim log_perplexity to get preplx 
+
+#results
+coherence = c(0.55557681617464572,
+              0.55840985073853777,
+              0.56874894113621732,
+              0.55972013170397117,
+              0.53851956745620599,
+              0.4965928502938467,
+              0.48059205000443794)
+k = c(10, 20, 30, 40, 50, 80, 100)
+log_prex = c(-6.7311955042887579,
+             -6.6776722214222417,
+             -6.6569918329032696,
+             -6.6870875786131343,
+             -6.6975109524108394,
+             -6.771210775346705,
+             -6.8733234425788874)
+
+#plotting coherence
+temp = data.frame(K=k, Coherence = coherence)
+qplot(as.factor(temp$K), temp$Coherence)
+myplot = ggplot(data=temp, aes(x=K, y = Coherence))+
+  #geom_bar(fill = "#4589c6", color="black")+
+  geom_line(col=rgb(0.1,0.7,0.1,0.8), lwd=2 ) + geom_point( pch=20 , cex=8) +
+  geom_point(data=temp[3,], aes(x=K, y=Coherence), colour="#008ECC", size=10) +
+  labs(title="", x="Number of topics (K)",y="Cv Topic Coherence") +
+  theme_bw() + theme(legend.title=element_blank())+ theme(legend.position="top") +
+  theme_bw() +theme(panel.grid.major = element_blank())+
+  theme(text = element_text(size=30), axis.text.x = element_text(size=35,face = "bold"), axis.text.y = element_text(size=35))
+myplot
+
+
+#plotting perp
+temp = data.frame(K=k, Log_Perplexity = log_prex)
+qplot(as.factor(temp$K), temp$Log_Perplexity)
+myplot = ggplot(data=temp, aes(x=K, y = Log_Perplexity))+
+  #geom_bar(fill = "#4589c6", color="black")+
+  geom_line(col=rgb(0.1,0.7,0.1,0.8), lwd=2 ) + geom_point( pch=20 , cex=8) +
+  geom_point(data=temp[3,], aes(x=K, y=Log_Perplexity), colour="#008ECC", size=10) +
+  labs(title="", x="Number of topics (K)",y="Log_Perplexity") +
+  theme_bw() + theme(legend.title=element_blank())+ theme(legend.position="top") +
+  theme_bw() +theme(panel.grid.major = element_blank())+
+  theme(text = element_text(size=30), axis.text.x = element_text(size=35,face = "bold"), axis.text.y = element_text(size=35))
+myplot
