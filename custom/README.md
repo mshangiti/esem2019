@@ -17,6 +17,6 @@ This file contains the user id and the score for each user based on the Expertis
 This file contains the user id and the score for each user based on the ExpertiseRank apporach for the web development sample users. 
 
 # Columns to know
-**totalCount**: The number of posts that fall under a specific tag.
-**noAcceptedAnswerCount**: The number of posts with no accepted answer under the corresponding tag.
+- **totalCount**: The number of posts that fall under a specific tag.
+- **noAcceptedAnswerCount**: The number of posts with no accepted answer under the corresponding tag.
 
