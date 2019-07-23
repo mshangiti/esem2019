@@ -1,6 +1,13 @@
-Dataset for ESEM2019 paper ‘‘Why is Developing Machine Learning Applications Challenging? A Study on Stack Overflow Posts’’.
+# ml_quan_sample_1.csv to ml_quan_sample_4.csv
+Those files contain the quantitative sample as described in the paper. Most of the columns are self explanatory.  Nonetheless, there's a short description of some of the columns that we believe may not be very clear.
 
-First, the quantitative sample as described in the paper. The four files ml_quan_sample_1.csv to ml_quan_sample_4.csv consititute the sample (). The following information is available in those files:
+# ml_quan_sample_answers.csv
+This file contains answer posts to the question posts found in the quantitative sample. Please note that not all questions have an **accepted answer**. As such, this file will only contain the answer post to those questions with a marked accepted answer. This is provided to measure the response time.
+
+# web_sample.csv
+To measure the response time for web development related posts, a sample was generated. In this file the sample of questions alongside the answer post information can be found.
+
+# Columns to know
 - Id: StackOverflow's post id.
 - PostTypeId: The type of post, is it a question or a response (answer)?
 - ParentId: If the post is a question, this filed will contain "None". If the post is a response, then it would have the id of the question post (i.e., the parent).
