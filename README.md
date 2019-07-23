@@ -1,5 +1,5 @@
 # What is this?
-This repo contains a replication package for the paper entitled ‘‘Why is Developing Machine Learning Applications Challenging? A Study on Stack Overflow Posts’’ published as part of the[2019 ESEM conference](http://eseiw2019.com/esem/).
+This repo contains a replication package for the paper entitled ‘‘Why is Developing Machine Learning Applications Challenging? A Study on Stack Overflow Posts’’ published as part of the [2019 ESEM conference](http://eseiw2019.com/esem/).
 
 # What is included?
 The package consists of the following:
