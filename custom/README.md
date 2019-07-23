@@ -1,14 +1,22 @@
-# ESEM 2019 
-Dataset for ESEM2019 paper ‘‘Why is Developing Machine Learning Applications Challenging? A Study on Stack Overflow Posts’’.
+# ml_lda_gensim_mat.txt
+This file contains the LDA matrix representing the distribution of documents over topics for the 30 discovered topics.
 
-# FILES
+# ml_lda_gensim_term.txt
+This file contains the top LDA terms that describe each of the 30 discovered topics.
 
-RQ1: Calculating the response time. The following two files should provide all the nessary data to compare ML response time with web development response time.
-1. ml_quan_sample_answers.csv: This file contain the answers to the quantitative sample questions (if an accepted answer is found).
-2. web_sample_answers: This file contain the answers to the web development sample questions (if an accepted answer is found).
+# ml_tags_stat.csv
+This file contains the list of ML tags that was constructed using the snowball sampling approach disucssed in the paper, along with soem statistics that were generated from the StackOverflow data dump.
 
+# others_tag_stat.csv
+This file contains the list of 5000 tags that were used to construct the baseline sample discussed in the paper, along with soem statistics that were generated from the StackOverflow data dump.
 
-Second, ml_tags_stat.csv and others_tag_stat.csv contains the machine learning related tags and the baseline tags, where each file shows the tag and the following statistics:
-- Total number of question posts under the corresponding tag.
-- Number of question posts with no accepted answer under the corresponding tag.
-- Number of question posts with no response under the corresponding tag.
+# ml_users_ExpertiseRank.csv
+This file contains the user id and the score for each user based on the ExpertiseRank apporach for the quantitative study sample users. 
+
+# web_users_ExpertiseRank.csv
+This file contains the user id and the score for each user based on the ExpertiseRank apporach for the web development sample users. 
+
+# Columns to know
+**totalCount**: The number of posts that fall under a specific tag.
+**noAcceptedAnswerCount**: The number of posts with no accepted answer under the corresponding tag.
+
