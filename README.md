@@ -1,6 +1,29 @@
 # What is this?
 This repo contains a replication package for the paper entitled ‘‘Why is Developing Machine Learning Applications Challenging? A Study on Stack Overflow Posts’’ published as part of the [2019 ESEM conference](http://eseiw2019.com/esem/).
 
+```
+@inproceedings{DBLP:conf/esem/AlshangitiSMLY19,
+  author    = {Moayad Alshangiti and
+               Hitesh Sapkota and
+               Pradeep K. Murukannaiah and
+               Xumin Liu and
+               Qi Yu},
+  title     = {Why is Developing Machine Learning Applications Challenging? {A} Study
+               on Stack Overflow Posts},
+  booktitle = {2019 {ACM/IEEE} International Symposium on Empirical Software Engineering
+               and Measurement, {ESEM} 2019, Porto de Galinhas, Recife, Brazil, September
+               19-20, 2019},
+  pages     = {1--11},
+  publisher = {{IEEE}},
+  year      = {2019},
+  url       = {https://doi.org/10.1109/ESEM.2019.8870187},
+  doi       = {10.1109/ESEM.2019.8870187},
+  timestamp = {Wed, 23 Oct 2019 17:15:06 +0200},
+  biburl    = {https://dblp.org/rec/bib/conf/esem/AlshangitiSMLY19},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+```
+
 # What is included?
 The package consists of the following:
 
